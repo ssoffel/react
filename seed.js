@@ -1,12 +1,9 @@
 const {db, Contact} = require('./server/db')
+const seedData = require('./seed-data.json')
 
 db.sync({force: true})
-  .then(() => {
-    return Promise.all([
-      Contact.create({name: 'Rey', phone: '777-777-7777', email: 'rey@milleniumfalcon.com'}),
-      Contact.create({name: 'Finn', phone: '888-888-8888', email: 'finn@resistance.com'}),
-      Contact.create({name: 'Poe', phone: '999-999-9999', email: 'poe@resistance.com'})
-    ])
+  .then(async () => {
+    return Promise.all(seedData.map(contact => Contact.create(contact)))
   })
   .then(() => {
     console.log(`
