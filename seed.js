@@ -2,7 +2,7 @@ const {db, Contact} = require('./server/db')
 const seedData = require('./seed-data.json')
 
 db.sync({force: true})
-  .then(async () => {
+  .then(() => {
     return Promise.all(seedData.map(contact => Contact.create(contact)))
   })
   .then(() => {
